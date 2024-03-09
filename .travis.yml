@@ -11,9 +11,9 @@ script:
 
 after_success:
   - docker build -t achevsky/multi-client -f ./client/Dockerfile.dev ./client
-  - docker build -t achevsky/multi-worker -f ./client/Dockerfile.dev ./worder
-  - docker build -t achevsky/multi-nginx -f ./client/Dockerfile.dev ./nginx
-  - docker build -t achevsky/multi-server -f ./client/Dockerfile.dev ./server
+  - docker build -t achevsky/multi-worker -f ./worker/Dockerfile.dev ./worker
+  - docker build -t achevsky/multi-nginx -f ./ngnix/Dockerfile.dev ./nginx
+  - docker build -t achevsky/multi-server -f ./server/Dockerfile.dev ./server
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
