@@ -4,13 +4,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t alexchevsky/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t achevsky/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true alexchevsky/react-test npm test 
+  - docker run -e CI=true achevsky/react-test npm test 
 
 after_success:
-  - docker build -t alexchevsky/multi-client -f ./client/Dockerfile.dev ./client
-  - docker build -t alexchevsky/multi-worker -f ./client/Dockerfile.dev ./worder
-  - docker build -t alexchevsky/multi-nginx -f ./client/Dockerfile.dev ./nginx
-  - docker build -t alexchevsky/multi-server -f ./client/Dockerfile.dev ./server
+  - docker build -t achevsky/multi-client -f ./client/Dockerfile.dev ./client
+  - docker build -t achevsky/multi-worker -f ./client/Dockerfile.dev ./worder
+  - docker build -t achevsky/multi-nginx -f ./client/Dockerfile.dev ./nginx
+  - docker build -t achevsky/multi-server -f ./client/Dockerfile.dev ./server
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push achevsky/multi-client
+  - docker push achevsky/multi-server
+  - docker push achevsky/multi-worker
+  - docker push achevsky/multi-nginx
