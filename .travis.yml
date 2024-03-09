@@ -10,10 +10,10 @@ script:
   - docker run -e CI=true achevsky/react-test npm test 
 
 after_success:
-  - docker build -t achevsky/multi-client -f ./client/Dockerfile.dev ./client
-  - docker build -t achevsky/multi-worker -f ./worker/Dockerfile.dev ./worker
-  - docker build -t achevsky/multi-nginx -f ./ngnix/Dockerfile.dev ./nginx
-  - docker build -t achevsky/multi-server -f ./server/Dockerfile.dev ./server
+  - docker build -t achevsky/multi-client ./client
+  - docker build -t achevsky/multi-server ./server
+  - docker build -t achevsky/multi-worker ./worker
+  - docker build -t achevsky/multi-nginx ./nginx
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
