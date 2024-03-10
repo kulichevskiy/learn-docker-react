@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "achevsky/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "achevsky/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "achevsky/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "achevsky/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPot": 80
+                }
+            ],
+            "links": [
+                "client",
+                "api"
+            ]
+        }
+    ]
+}

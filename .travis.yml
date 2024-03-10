@@ -21,3 +21,15 @@ after_success:
   - docker push achevsky/multi-server
   - docker push achevsky/multi-worker
   - docker push achevsky/multi-nginx
+
+  deploy:
+    provider: elasticbeanstalk
+    region: 'eu-central-1'
+    app: 'multi-docker'
+    env: 'Multi-docker-env'
+    bucket_name: 'elasticbeanstalk-eu-central-1-963767027662'
+    bucket_path: 'multi-docker'
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
